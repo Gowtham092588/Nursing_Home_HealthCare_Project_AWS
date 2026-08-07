@@ -1,0 +1,9 @@
+streamlit
+pandas
+plotly
+boto3
+time
+json
+logging
+os
+traceback
