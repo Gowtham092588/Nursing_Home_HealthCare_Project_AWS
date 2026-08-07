@@ -1,0 +1,22 @@
+[
+    {
+        "Name": "state_nation",
+        "Type": "string"
+    },
+    {
+        "Name": "avg_short_stay_rehospitalization_rate_pct",
+        "Type": "double"
+    },
+    {
+        "Name": "avg_short_stay_op_emergency_dept_visit",
+        "Type": "double"
+    },
+    {
+        "Name": "avg_hospitalizations_per_1000_resident_days",
+        "Type": "double"
+    },
+    {
+        "Name": "avg_ed_visits_per_1000_resident_days",
+        "Type": "double"
+    }
+]

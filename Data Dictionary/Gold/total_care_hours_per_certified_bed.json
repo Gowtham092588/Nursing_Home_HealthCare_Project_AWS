@@ -1,0 +1,39 @@
+[
+    {
+        "Name": "provider_id",
+        "Type": "string"
+    },
+    {
+        "Name": "total_rn_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_lpn_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_cna_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_care_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "certified_beds",
+        "Type": "int"
+    },
+    {
+        "Name": "total_care_hours_per_certified_bed",
+        "Type": "double"
+    },
+    {
+        "Name": "load_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "work_date",
+        "Type": "date",
+        "PartitionKey": "Partition (0)"
+    }
+]

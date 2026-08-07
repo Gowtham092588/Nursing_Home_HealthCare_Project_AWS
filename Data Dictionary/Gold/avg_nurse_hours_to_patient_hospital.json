@@ -1,0 +1,42 @@
+[
+    {
+        "Name": "provider_id",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_name",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "work_date",
+        "Type": "date"
+    },
+    {
+        "Name": "total_rn_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_lpn_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_cna_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_patients",
+        "Type": "bigint"
+    },
+    {
+        "Name": "total_nursing_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "nurse_to_patient_ratio",
+        "Type": "double"
+    }
+]

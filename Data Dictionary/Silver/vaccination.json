@@ -1,0 +1,42 @@
+[
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "resident_vaccine_percentage",
+        "Type": "double"
+    },
+    {
+        "Name": "staff_vaccine_percentage",
+        "Type": "double"
+    },
+    {
+        "Name": "vaccination_update_date",
+        "Type": "date"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    }
+]

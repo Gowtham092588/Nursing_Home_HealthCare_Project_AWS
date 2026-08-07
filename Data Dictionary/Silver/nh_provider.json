@@ -1,0 +1,462 @@
+[
+    {
+        "Name": "provider_id",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_name",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_address",
+        "Type": "string"
+    },
+    {
+        "Name": "city",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "zip_code",
+        "Type": "string"
+    },
+    {
+        "Name": "phone_number",
+        "Type": "string"
+    },
+    {
+        "Name": "county_code",
+        "Type": "string"
+    },
+    {
+        "Name": "county_name",
+        "Type": "string"
+    },
+    {
+        "Name": "ownership_type",
+        "Type": "string"
+    },
+    {
+        "Name": "certified_beds",
+        "Type": "int"
+    },
+    {
+        "Name": "avg_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "avg_residents_per_day_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "provider_type",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_resides_hospital",
+        "Type": "boolean"
+    },
+    {
+        "Name": "legal_business_name",
+        "Type": "string"
+    },
+    {
+        "Name": "date_first_approved_medicare_medicaid",
+        "Type": "date"
+    },
+    {
+        "Name": "affiliated_entity_name",
+        "Type": "string"
+    },
+    {
+        "Name": "affiliated_entity_id",
+        "Type": "string"
+    },
+    {
+        "Name": "continue_care_retirement_community",
+        "Type": "boolean"
+    },
+    {
+        "Name": "spl_focus_status",
+        "Type": "string"
+    },
+    {
+        "Name": "abuse_icon",
+        "Type": "boolean"
+    },
+    {
+        "Name": "most_recent_health_inspection_2yrs_ago",
+        "Type": "boolean"
+    },
+    {
+        "Name": "provider_changed_ownership_last_12months",
+        "Type": "boolean"
+    },
+    {
+        "Name": "with_resident_family_council",
+        "Type": "string"
+    },
+    {
+        "Name": "automatic_sprinkler_systems_all_req_areas",
+        "Type": "boolean"
+    },
+    {
+        "Name": "overall_rating",
+        "Type": "int"
+    },
+    {
+        "Name": "overall_rating_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "health_inspection_rating",
+        "Type": "int"
+    },
+    {
+        "Name": "health_inspection_rating_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "qm_rating",
+        "Type": "int"
+    },
+    {
+        "Name": "qm_rating_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "long_stay_qm_rating",
+        "Type": "int"
+    },
+    {
+        "Name": "long_stay_qm_rating_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "short_stay_qm_rating",
+        "Type": "int"
+    },
+    {
+        "Name": "short_stay_qm_rating_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "staffing_rating",
+        "Type": "int"
+    },
+    {
+        "Name": "staffing_rating_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "reported_staffing_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "physical_therapist_staffing_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "reported_nurse_aide_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_lpn_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_rn_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_licensed_staff_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "total_number_nurse_hours_per_resident_per_day_weekend",
+        "Type": "double"
+    },
+    {
+        "Name": "registered_nurse_hours_per_resident_per_day_weekend",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_physical_therapist_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "total_nurse_staff_turnover",
+        "Type": "double"
+    },
+    {
+        "Name": "total_nurse_staff_turnover_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "registered_nurse_turnover",
+        "Type": "double"
+    },
+    {
+        "Name": "registered_nurse_turnover_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "number_administrators_left_nursing_home",
+        "Type": "int"
+    },
+    {
+        "Name": "administrator_turnover_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "nursing_case_mix_index",
+        "Type": "double"
+    },
+    {
+        "Name": "nursing_case_mix_index_ratio",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_nurse_aide_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_lpn_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_rn_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_weekend_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "adjusted_nurse_aide_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "adjusted_lpn_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "adjusted_rn_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "adjusted_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "adjusted_weekend_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "rating_cycle_1_standard_health_survey_date",
+        "Type": "date"
+    },
+    {
+        "Name": "rating_cycle_1_total_number_of_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_1_number_of_standard_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_1_number_of_complaint_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_1_health_deficiency_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_1_number_of_health_revisits",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_1_health_revisit_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_1_total_health_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_standard_health_survey_date",
+        "Type": "date"
+    },
+    {
+        "Name": "rating_cycle_2_total_number_of_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_number_of_standard_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_number_of_complaint_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_health_deficiency_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_number_of_health_revisits",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_health_revisit_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_2_total_health_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_standard_health_survey_date",
+        "Type": "date"
+    },
+    {
+        "Name": "rating_cycle_3_total_number_of_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_number_of_standard_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_number_of_complaint_health_deficiencies",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_health_deficiency_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_number_of_health_revisits",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_health_revisit_score",
+        "Type": "int"
+    },
+    {
+        "Name": "rating_cycle_3_total_health_score",
+        "Type": "int"
+    },
+    {
+        "Name": "total_weighted_health_survey_score",
+        "Type": "int"
+    },
+    {
+        "Name": "number_facility_reported_incidents",
+        "Type": "int"
+    },
+    {
+        "Name": "number_substantiated_complaints",
+        "Type": "int"
+    },
+    {
+        "Name": "number_citations_infection_control_inspections",
+        "Type": "int"
+    },
+    {
+        "Name": "number_fines",
+        "Type": "int"
+    },
+    {
+        "Name": "total_fine_amount_dollars",
+        "Type": "decimal(18,2)"
+    },
+    {
+        "Name": "number_payment_denials",
+        "Type": "int"
+    },
+    {
+        "Name": "total_number_penalties",
+        "Type": "int"
+    },
+    {
+        "Name": "location",
+        "Type": "string"
+    },
+    {
+        "Name": "latitude",
+        "Type": "double"
+    },
+    {
+        "Name": "longitude",
+        "Type": "double"
+    },
+    {
+        "Name": "geocoding_footnote",
+        "Type": "int"
+    },
+    {
+        "Name": "processing_date",
+        "Type": "date"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    },
+    {
+        "Name": "scd_record_hash",
+        "Type": "string"
+    },
+    {
+        "Name": "effective_start_date",
+        "Type": "date"
+    },
+    {
+        "Name": "effective_end_date",
+        "Type": "date"
+    },
+    {
+        "Name": "is_current",
+        "Type": "boolean"
+    },
+    {
+        "Name": "scd_insert_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "scd_update_timestamp",
+        "Type": "timestamp"
+    }
+]

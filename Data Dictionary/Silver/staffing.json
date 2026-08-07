@@ -1,0 +1,159 @@
+[
+    {
+        "Name": "provider_id",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_name",
+        "Type": "string"
+    },
+    {
+        "Name": "city",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "county",
+        "Type": "string"
+    },
+    {
+        "Name": "county_fips",
+        "Type": "string"
+    },
+    {
+        "Name": "work_date",
+        "Type": "date"
+    },
+    {
+        "Name": "no_of_patients",
+        "Type": "int"
+    },
+    {
+        "Name": "hrs_rndon",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rndon_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rndon_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rnadmin",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rnadmin_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rnadmin_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rn",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rn_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_rn_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_lpnadmin",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_lpnadmin_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_lpnadmin_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_lpn",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_lpn_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_lpn_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_cna",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_cna_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_cna_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_natrn",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_natrn_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_natrn_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_medaide",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_medaide_emp",
+        "Type": "double"
+    },
+    {
+        "Name": "hrs_medaide_ctr",
+        "Type": "double"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    },
+    {
+        "Name": "calendar_quarter",
+        "Type": "string",
+        "PartitionKey": "Partition (0)"
+    }
+]

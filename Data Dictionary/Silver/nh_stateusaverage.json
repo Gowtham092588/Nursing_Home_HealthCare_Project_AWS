@@ -1,0 +1,218 @@
+[
+    {
+        "Name": "state_nation",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle_1_total_health_deficiencies",
+        "Type": "double"
+    },
+    {
+        "Name": "cycle_1_total_fire_safety_deficiencies",
+        "Type": "double"
+    },
+    {
+        "Name": "cycle_2_total_health_deficiencies",
+        "Type": "double"
+    },
+    {
+        "Name": "cycle_2_total_fire_safety_deficiencies",
+        "Type": "double"
+    },
+    {
+        "Name": "cycle_3_total_health_deficiencies",
+        "Type": "double"
+    },
+    {
+        "Name": "cycle_3_total_fire_safety_deficiencies",
+        "Type": "double"
+    },
+    {
+        "Name": "avg_number_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_nurse_aide_hours_per_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_lpn_hours_per_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_rn_hours_per_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_licensed_staff_hours_per_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_total_nurse_hours_per_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "total_nurse_hours_per_resident_per_day_weekend",
+        "Type": "double"
+    },
+    {
+        "Name": "registered_nurse_hours_per_resident_per_day_weekend",
+        "Type": "double"
+    },
+    {
+        "Name": "reported_physical_therapist_hours_per_residents_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "total_nursing_turnover",
+        "Type": "double"
+    },
+    {
+        "Name": "registered_nurse_turnover",
+        "Type": "double"
+    },
+    {
+        "Name": "number_administrators_left_nursing_home",
+        "Type": "double"
+    },
+    {
+        "Name": "nursing_case_mix_index",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_rn_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "case_mix_weekend_total_nurse_hours_per_resident_per_day",
+        "Type": "double"
+    },
+    {
+        "Name": "number_fines",
+        "Type": "double"
+    },
+    {
+        "Name": "total_fine_amount_dollars",
+        "Type": "decimal(18,2)"
+    },
+    {
+        "Name": "percentage_long_stay_residents_need_help_daily_activities_increased",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_lost_more_weight",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_low_risk_long_stay_residents_lost_control_bowels_bladder",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_catheter_inserted_left_bladder",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_urinary_tract_infection",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_depressive_symptoms",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_physically_restrained",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_experiencing_one_more_falls_major_injury",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_assessed_appropriately_pneumococcal_vaccine",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_received_antipsychotic_medication",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_short_stay_residents_assessed_appropriately_pneumococcal_vaccine",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_short_stay_residents_received_antipsychotic_medication",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_ability_move_independently_worsened",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_received_antianxiety_hypnotic_medication",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_high_risk_long_stay_residents_pressure_ulcers",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_long_stay_residents_assessed_appropriately_seasonal_influenza_vaccine",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_short_stay_residents_improvements_functions",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_short_stay_residents_assessed_appropriately_seasonal_influenza_vaccine",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_short_stay_residents_rehospitalized_after_nursing_home_admission",
+        "Type": "double"
+    },
+    {
+        "Name": "percentage_short_stay_residents_outpatient_emergency_department_visit",
+        "Type": "double"
+    },
+    {
+        "Name": "number_hospitalizations_1000_long_stay_resident_days",
+        "Type": "double"
+    },
+    {
+        "Name": "number_outpatient_emergency_department_visits_1000_long_stay_resident_days",
+        "Type": "double"
+    },
+    {
+        "Name": "processing_date",
+        "Type": "date"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "resident_rate",
+        "Type": "double"
+    },
+    {
+        "Name": "staff_rate",
+        "Type": "double"
+    }
+]

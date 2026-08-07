@@ -1,0 +1,42 @@
+[
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "percent of residents who are up-to-date on their vaccines",
+        "Type": "string"
+    },
+    {
+        "Name": "percent of staff who are up-to-date on their vaccines",
+        "Type": "string"
+    },
+    {
+        "Name": "date vaccination data last updated",
+        "Type": "string"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    }
+]

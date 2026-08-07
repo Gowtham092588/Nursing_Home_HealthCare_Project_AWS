@@ -1,0 +1,218 @@
+[
+    {
+        "Name": "state or nation",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle 1 total number of health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle 1 total number of fire safety deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle 2 total number of health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle 2 total number of fire safety deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle 3 total number of health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "cycle 3 total number of fire safety deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "average number of residents per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported nurse aide staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported lpn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported rn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported licensed staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "total number of nurse staff hours per resident per day on the weekend",
+        "Type": "string"
+    },
+    {
+        "Name": "registered nurse hours per resident per day on the weekend",
+        "Type": "string"
+    },
+    {
+        "Name": "reported physical therapist staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "total nursing staff turnover",
+        "Type": "string"
+    },
+    {
+        "Name": "registered nurse turnover",
+        "Type": "string"
+    },
+    {
+        "Name": "number of administrators who have left the nursing home",
+        "Type": "string"
+    },
+    {
+        "Name": "nursing case-mix index",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix rn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix weekend total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "number of fines",
+        "Type": "string"
+    },
+    {
+        "Name": "fine amount in dollars",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents whose need for help with daily activities has increased",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents who lose too much weight",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of low risk long stay residents who lose control of their bowels or bladder",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents with a catheter inserted and left in their bladder",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents with a urinary tract infection",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents who have depressive symptoms",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents who were physically restrained",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents experiencing one or more falls with major injury",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents assessed and appropriately given the pneumococcal vaccine",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents who received an antipsychotic medication",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of short stay residents assessed and appropriately given the pneumococcal vaccine",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of short stay residents who newly received an antipsychotic medication",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents whose ability to move independently worsened",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents who received an antianxiety or hypnotic medication",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of high risk long stay residents with pressure ulcers",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of long stay residents assessed and appropriately given the seasonal influenza vaccine",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of short stay residents who made improvements in function",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of short stay residents who were assessed and appropriately given the seasonal influenza vaccine",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of short stay residents who were rehospitalized after a nursing home admission",
+        "Type": "string"
+    },
+    {
+        "Name": "percentage of short stay residents who had an outpatient emergency department visit",
+        "Type": "string"
+    },
+    {
+        "Name": "number of hospitalizations per 1000 long-stay resident days",
+        "Type": "string"
+    },
+    {
+        "Name": "number of outpatient emergency department visits per 1000 long-stay resident days",
+        "Type": "string"
+    },
+    {
+        "Name": "processing date",
+        "Type": "string"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    }
+]

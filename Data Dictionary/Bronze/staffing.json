@@ -1,0 +1,158 @@
+[
+    {
+        "Name": "provnum",
+        "Type": "string"
+    },
+    {
+        "Name": "provname",
+        "Type": "string"
+    },
+    {
+        "Name": "city",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "county_name",
+        "Type": "string"
+    },
+    {
+        "Name": "county_fips",
+        "Type": "string"
+    },
+    {
+        "Name": "cy_qtr",
+        "Type": "string"
+    },
+    {
+        "Name": "workdate",
+        "Type": "string"
+    },
+    {
+        "Name": "mdscensus",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rndon",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rndon_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rndon_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rnadmin",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rnadmin_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rnadmin_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rn",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rn_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_rn_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_lpnadmin",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_lpnadmin_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_lpnadmin_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_lpn",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_lpn_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_lpn_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_cna",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_cna_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_cna_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_natrn",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_natrn_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_natrn_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_medaide",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_medaide_emp",
+        "Type": "string"
+    },
+    {
+        "Name": "hrs_medaide_ctr",
+        "Type": "string"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    }
+]

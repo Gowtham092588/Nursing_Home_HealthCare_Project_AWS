@@ -1,0 +1,18 @@
+[
+    {
+        "Name": "provider_id",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_name",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "avg_residents_per_day",
+        "Type": "double"
+    }
+]

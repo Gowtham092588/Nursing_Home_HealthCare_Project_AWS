@@ -1,0 +1,67 @@
+[
+    {
+        "Name": "provider_id",
+        "Type": "string"
+    },
+    {
+        "Name": "provider_name",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "rn_permanent_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "lpn_permanent_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "cna_permanent_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "rn_contract_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "lpn_contract_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "cna_contract_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_permanent_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "total_contract_hours",
+        "Type": "double"
+    },
+    {
+        "Name": "permanent_to_contract_ratio",
+        "Type": "double"
+    },
+    {
+        "Name": "permanent_staff_percentage",
+        "Type": "double"
+    },
+    {
+        "Name": "contract_staff_percentage",
+        "Type": "double"
+    },
+    {
+        "Name": "load_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "work_date",
+        "Type": "date",
+        "PartitionKey": "Partition (0)"
+    }
+]
