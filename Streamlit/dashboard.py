@@ -31,6 +31,7 @@ def load_care_hours_per_bed(provider_id: str) -> pd.DataFrame:
     query = f"""
         SELECT
             provider_id,
+            provider_name,
             work_date,
             total_rn_hours,
             total_lpn_hours,
@@ -300,6 +301,14 @@ if page == "Provider Capacity":
 
             if latest_record is not None:
 
+                st.subheader(
+                    latest_record["provider_name"]
+                )
+
+                st.caption(
+                    f"Provider ID: {latest_record['provider_id']}"
+                )
+
                 col1, col2, col3 = st.columns(3)
 
                 col1.metric(
@@ -320,7 +329,7 @@ if page == "Provider Capacity":
                 )
 
             st.subheader(
-                "Total Care Hours Per Certified Bed By Provider"
+                "Total Care Hours Per Certified Bed By Work Date"
             )
 
             chart = px.line(
