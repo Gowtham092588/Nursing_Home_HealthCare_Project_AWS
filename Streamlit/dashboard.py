@@ -13,8 +13,21 @@ st.title("🏥 Nursing Home Healthcare Dashboard")
 
 
 @st.cache_data(ttl=300)
-def load_care_hours_per_bed() -> pd.DataFrame:
+def load_provider_ids() -> pd.DataFrame:
+
     query = """
+        SELECT DISTINCT
+            provider_id
+        FROM total_care_hours_per_certified_bed
+        ORDER BY provider_id
+    """
+
+    return run_athena(query)
+
+
+@st.cache_data(ttl=300)
+def load_care_hours_per_bed(provider_id: str) -> pd.DataFrame:
+    query = f"""
         SELECT
             provider_id,
             work_date,
@@ -25,6 +38,22 @@ def load_care_hours_per_bed() -> pd.DataFrame:
             certified_beds,
             total_care_hours_per_certified_bed
         FROM total_care_hours_per_certified_bed
+        WHERE provider_id = '{provider_id}'
+        ORDER BY work_date
+    """
+
+    return run_athena(query)
+
+
+@st.cache_data(ttl=300)
+def load_average_care_hours_per_bed() -> pd.DataFrame:
+
+    query = """
+        SELECT
+            AVG(
+                total_care_hours_per_certified_bed
+            ) AS average_care_hours_per_bed
+        FROM total_care_hours_per_certified_bed
     """
 
     return run_athena(query)
@@ -32,19 +61,16 @@ def load_care_hours_per_bed() -> pd.DataFrame:
 
 @st.cache_data(ttl=300)
 def load_nursing_hours_per_patient() -> pd.DataFrame:
+
     query = """
         SELECT
-            provider_id,
-            provider_name,
             state,
-            work_date,
-            total_rn_hours,
-            total_lpn_hours,
-            total_cna_hours,
-            total_patients,
-            total_nursing_hours,
-            nurse_to_patient_ratio
+            AVG(
+                nurse_to_patient_ratio
+            ) AS nurse_to_patient_ratio
         FROM avg_nurse_hours_to_patient_hospital
+        GROUP BY state
+        ORDER BY state
     """
 
     return run_athena(query)
@@ -66,18 +92,62 @@ def load_top_providers() -> pd.DataFrame:
 
 
 @st.cache_data(ttl=300)
-def load_staffing_ratio() -> pd.DataFrame:
+def load_staffing_states() -> pd.DataFrame:
+
+    query = """
+        SELECT DISTINCT
+            state
+        FROM permanent_contract_staffing_ratio
+        ORDER BY state
+    """
+
+    return run_athena(query)
+
+
+@st.cache_data(ttl=300)
+def load_staffing_ratio(selected_states: tuple[str, ...]) -> pd.DataFrame:
+
+    states_sql = ", ".join(
+        f"'{state}'"
+        for state in selected_states
+    )
+
+    query = f"""
+        SELECT
+            state,
+
+            AVG(
+                permanent_staff_percentage
+            ) AS permanent_staff,
+
+            AVG(
+                contract_staff_percentage
+            ) AS contract_staff
+
+        FROM permanent_contract_staffing_ratio
+
+        WHERE state IN ({states_sql})
+
+        GROUP BY state
+
+        ORDER BY state
+    """
+
+    return run_athena(query)
+
+
+@st.cache_data(ttl=300)
+def load_overall_staffing_summary() -> pd.DataFrame:
+
     query = """
         SELECT
-            provider_id,
-            provider_name,
-            state,
-            work_date,
-            total_permanent_hours,
-            total_contract_hours,
-            permanent_to_contract_ratio,
-            permanent_staff_percentage,
-            contract_staff_percentage
+            AVG(
+                permanent_staff_percentage
+            ) AS avg_permanent_staff,
+
+            AVG(
+                contract_staff_percentage
+            ) AS avg_contract_staff
         FROM permanent_contract_staffing_ratio
     """
 
@@ -171,69 +241,102 @@ if page == "Provider Capacity":
 
     try:
 
-        care_df = load_care_hours_per_bed()
+        provider_df = load_provider_ids()
 
-        care_df = convert_numeric_columns(care_df, [
-            "total_rn_hours",
-            "total_lpn_hours",
-            "total_cna_hours",
-            "total_care_hours",
-            "certified_beds",
-            "total_care_hours_per_certified_bed"
-        ])
-
-        care_df = convert_date_columns(care_df, ["work_date"])
-
-        provider_ids = sorted(
-            care_df["provider_id"].dropna().unique().tolist())
-
-        selected_provider = st.selectbox("Select provider", provider_ids)
-
-        provider_df = care_df[care_df["provider_id"]
-                              == selected_provider].copy()
-
-        provider_df = provider_df.sort_values("work_date", ascending=True)
-
-        latest_record = (provider_df.iloc[-1]
-                         if not provider_df.empty else None)
-
-        if latest_record is not None:
-            col1, col2, col3 = st.columns(3)
-
-            col1.metric("Certified Beds",
-                        f"{latest_record['certified_beds']:.0f}")
-
-            col2.metric("Total Care Hours",
-                        f"{latest_record['total_care_hours']:.2f}")
-
-            col3.metric("Care Hours per Bed",
-                        (f"{latest_record['total_care_hours_per_certified_bed']:.2f}"))
-
-        st.subheader("Total Care Hours Per Certified Bed By Provider")
-
-        chart = px.line(provider_df,
-                        x="work_date",
-                        y="total_care_hours_per_certified_bed",
-                        markers=True,
-                        labels={
-                            "work_date": "Work Date",
-                            "total_care_hours_per_certified_bed":
-                            "Care Hours per Certified Bed"
-                        }
-                        )
-
-        st.plotly_chart(
-            chart,
-            use_container_width=True
+        provider_ids = (
+            provider_df["provider_id"]
+            .tolist()
         )
 
-        st.dataframe(
-            provider_df,
-            use_container_width=True,
-            hide_index=True
+        selected_provider = st.selectbox(
+            "Select provider",
+            provider_ids
         )
+
+        if selected_provider:
+
+            care_df = load_care_hours_per_bed(
+                selected_provider
+            )
+
+            care_df = convert_numeric_columns(
+                care_df,
+                [
+                    "total_rn_hours",
+                    "total_lpn_hours",
+                    "total_cna_hours",
+                    "total_care_hours",
+                    "certified_beds",
+                    "total_care_hours_per_certified_bed"
+                ]
+            )
+
+            care_df = convert_date_columns(
+                care_df,
+                ["work_date"]
+            )
+
+            care_df = care_df.sort_values(
+                "work_date",
+                ascending=True
+            )
+
+            latest_record = (
+                care_df.iloc[-1]
+                if not care_df.empty
+                else None
+            )
+
+            if latest_record is not None:
+
+                col1, col2, col3 = st.columns(3)
+
+                col1.metric(
+                    "Certified Beds",
+                    f"{latest_record['certified_beds']:.0f}"
+                )
+
+                col2.metric(
+                    "Total Care Hours",
+                    f"{latest_record['total_care_hours']:.2f}"
+                )
+
+                col3.metric(
+                    "Care Hours per Bed",
+                    f"{latest_record[
+                        'total_care_hours_per_certified_bed'
+                    ]:.2f}"
+                )
+
+            st.subheader(
+                "Total Care Hours Per Certified Bed By Provider"
+            )
+
+            chart = px.line(
+                care_df,
+                x="work_date",
+                y="total_care_hours_per_certified_bed",
+                markers=True,
+                labels={
+                    "work_date": "Work Date",
+                    "total_care_hours_per_certified_bed":
+                        "Care Hours per Certified Bed"
+                }
+            )
+
+            st.plotly_chart(
+                chart,
+                use_container_width=True
+            )
+
+            st.dataframe(
+                care_df,
+                use_container_width=True,
+                hide_index=True
+            )
 
     except Exception as error:
+
         st.error(
             f"Unable to load provider capacity data: {error}"
         )
@@ -246,79 +349,84 @@ if page == "Provider Capacity":
 elif page == "Staffing Analysis":
 
     try:
-        staffing_df = load_staffing_ratio()
 
-        staffing_df = convert_numeric_columns(
-            staffing_df,
-            [
-                "total_permanent_hours",
-                "total_contract_hours",
-                "permanent_to_contract_ratio",
-                "permanent_staff_percentage",
-                "contract_staff_percentage"
-            ]
+        states_df = load_staffing_states()
+
+        states = (
+            states_df["state"]
+            .tolist()
         )
-
-        states = sorted(staffing_df["state"].dropna().unique().tolist())
 
         selected_states = st.multiselect(
-            "Select states", states, default=states[:5])
+            "Select states",
+            states,
+            default=states[:5]
+        )
 
         if selected_states:
-            filtered_staffing_df = staffing_df[staffing_df["state"].isin(
-                selected_states)]
-        else:
-            filtered_staffing_df = staffing_df
 
-        staffing_summary_df = (
-            filtered_staffing_df
-            .groupby("state", as_index=False)
-            .agg(permanent_staff=("permanent_staff_percentage", "mean"),
-                 contract_staff=(
-                     "contract_staff_percentage", "mean")
-                 )
-        )
+            staffing_summary_df = (
+                load_staffing_ratio(
+                    tuple(selected_states)
+                )
+            )
 
-        staffing_long_df = staffing_summary_df.melt(
-            id_vars="state",
-            value_vars=[
-                "permanent_staff",
-                "contract_staff"
-            ],
-            var_name="staff_type",
-            value_name="percentage"
-        )
+            staffing_summary_df = (
+                convert_numeric_columns(
+                    staffing_summary_df,
+                    [
+                        "permanent_staff",
+                        "contract_staff"
+                    ]
+                )
+            )
 
-        st.subheader("Permanent and Contract Staff Ratio")
+            staffing_long_df = (
+                staffing_summary_df.melt(
+                    id_vars="state",
+                    value_vars=[
+                        "permanent_staff",
+                        "contract_staff"
+                    ],
+                    var_name="staff_type",
+                    value_name="percentage"
+                )
+            )
 
-        staffing_chart = px.bar(staffing_long_df,
-                                x="state",
-                                y="percentage",
-                                color="staff_type",
-                                barmode="group",
-                                labels={
-                                    "state": "State",
-                                    "percentage": "Average Percentage",
-                                    "staff_type": "Staff Type"
-                                }
-                                )
+            st.subheader(
+                "Permanent and Contract Staff Ratio"
+            )
 
-        st.plotly_chart(
-            staffing_chart,
-            use_container_width=True
-        )
+            staffing_chart = px.bar(
+                staffing_long_df,
+                x="state",
+                y="percentage",
+                color="staff_type",
+                barmode="group",
+                labels={
+                    "state": "State",
+                    "percentage":
+                        "Average Percentage",
+                    "staff_type": "Staff Type"
+                }
+            )
 
-        st.dataframe(
-            staffing_long_df,
-            use_container_width=True,
-            hide_index=True
-        )
+            st.plotly_chart(
+                staffing_chart,
+                use_container_width=True
+            )
+
+            st.dataframe(
+                staffing_long_df,
+                use_container_width=True,
+                hide_index=True
+            )
 
     except Exception as error:
+
         st.error(
             f"Unable to load staffing dashboard: {error}"
         )
-
 
 # ---------------------------------------------------------
 # State Health Metrics
@@ -327,25 +435,18 @@ elif page == "Staffing Analysis":
 elif page == "State Health Metrics":
 
     try:
-        nursing_df = load_nursing_hours_per_patient()
 
-        nursing_df = convert_numeric_columns(
-            nursing_df,
-            [
-                "total_rn_hours",
-                "total_lpn_hours",
-                "total_cna_hours",
-                "total_patients",
-                "total_nursing_hours",
-                "nurse_to_patient_ratio"
-            ]
+        nursing_summary_df = (
+            load_nursing_hours_per_patient()
         )
 
         nursing_summary_df = (
-            nursing_df
-            .groupby("state", as_index=False)
-            .agg(nurse_to_patient_ratio=("nurse_to_patient_ratio", "mean"))
-            .sort_values("nurse_to_patient_ratio", ascending=False)
+            convert_numeric_columns(
+                nursing_summary_df,
+                [
+                    "nurse_to_patient_ratio"
+                ]
+            )
         )
 
         st.subheader(
@@ -361,7 +462,8 @@ elif page == "State Health Metrics":
             hover_name="state",
             labels={
                 "state": "State",
-                "nurse_to_patient_ratio": "Average Nursing Hours per Patient"
+                "nurse_to_patient_ratio":
+                    "Average Nursing Hours per Patient"
             }
         )
 
@@ -371,16 +473,16 @@ elif page == "State Health Metrics":
         )
 
         st.dataframe(
-            nursing_df,
+            nursing_summary_df,
             use_container_width=True,
             hide_index=True
         )
 
     except Exception as error:
+
         st.error(
             f"Unable to load state metrics: {error}"
         )
-
 # ---------------------------------------------------------
 # Vaccination Analysis
 # ---------------------------------------------------------
@@ -444,7 +546,7 @@ elif page == "Vaccination Analysis":
             f"Unable to load vaccination dashboard: {error}"
         )
 # ---------------------------------------------------------
-# Overall Summary
+# Summary
 # ---------------------------------------------------------
 
 elif page == "Summary":
@@ -452,15 +554,49 @@ elif page == "Summary":
     try:
         top_provider_df = load_top_providers()
 
-        vaccination_df = load_vaccination_comparison()
+        average_care_df = load_average_care_hours_per_bed()
+
+        nursing_summary_df = load_nursing_hours_per_patient()
+
+        staffing_summary_df = load_overall_staffing_summary()
 
         hospitalization_df = load_hospitalizations()
 
-        care_df = load_care_hours_per_bed()
+        vaccination_df = load_vaccination_comparison()
 
-        top_provider_df = convert_numeric_columns(
-            top_provider_df,
-            ["avg_residents_per_day"]
+        top_provider_df = (
+            top_provider_df
+            .sort_values(
+                "avg_residents_per_day",
+                ascending=True
+            )
+        )
+
+        average_care_df = convert_numeric_columns(
+            average_care_df,
+            [
+                "average_care_hours_per_bed"
+            ]
+        )
+
+        staffing_summary_df = convert_numeric_columns(
+            staffing_summary_df,
+            [
+                "avg_permanent_staff",
+                "avg_contract_staff"
+            ]
+        )
+
+        nursing_summary_df = convert_numeric_columns(
+            nursing_summary_df,
+            ["nurse_to_patient_ratio"]
+        )
+
+        hospitalization_df = convert_numeric_columns(
+            hospitalization_df,
+            [
+                "avg_hospitalizations_per_1000"
+            ]
         )
 
         vaccination_df = convert_numeric_columns(
@@ -471,21 +607,35 @@ elif page == "Summary":
             ]
         )
 
-        hospitalization_df = convert_numeric_columns(
-            hospitalization_df,
-            [
-                "avg_hospitalizations_per_1000"
-            ]
-        )
+        if not average_care_df.empty:
 
-        care_df = convert_numeric_columns(
-            care_df,
-            [
-                "total_care_hours",
-                "certified_beds",
-                "total_care_hours_per_certified_bed"
-            ]
-        )
+            average_care_hours_per_bed = (
+                average_care_df[
+                    "average_care_hours_per_bed"
+                ].iloc[0]
+            )
+
+        else:
+            average_care_hours_per_bed = None
+
+        if not staffing_summary_df.empty:
+
+            avg_permanent_staff = (
+                staffing_summary_df[
+                    "avg_permanent_staff"
+                ].iloc[0]
+            )
+
+            avg_contract_staff = (
+                staffing_summary_df[
+                    "avg_contract_staff"
+                ].iloc[0]
+            )
+
+        else:
+
+            avg_permanent_staff = None
+            avg_contract_staff = None
 
         average_resident_vaccination = (
             vaccination_df["resident_rate"].mean()
@@ -495,15 +645,42 @@ elif page == "Summary":
             vaccination_df["staff_rate"].mean()
         )
 
-        average_care_hours_per_bed = (
-            care_df[
-                "total_care_hours_per_certified_bed"
-            ].mean()
-        )
-
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4, col5 = st.columns(5)
 
         col1.metric(
+            "Average Care Hours per Bed",
+            (
+                f"{average_care_hours_per_bed:.2f}"
+                if pd.notna(
+                    average_care_hours_per_bed
+                )
+                else "N/A"
+            )
+        )
+
+        col2.metric(
+            "Avg Permanent Staffing",
+            (
+                f"{avg_permanent_staff:.2f}%"
+                if pd.notna(
+                    avg_permanent_staff
+                )
+                else "N/A"
+            )
+        )
+
+        col3.metric(
+            "Avg Contract Staffing",
+            (
+                f"{avg_contract_staff:.2f}%"
+                if pd.notna(
+                    avg_contract_staff
+                )
+                else "N/A"
+            )
+        )
+
+        col4.metric(
             "Average Resident Vaccination",
             (
                 f"{average_resident_vaccination:.2f}%"
@@ -514,7 +691,7 @@ elif page == "Summary":
             )
         )
 
-        col2.metric(
+        col5.metric(
             "Average Staff Vaccination",
             (
                 f"{average_staff_vaccination:.2f}%"
@@ -523,20 +700,6 @@ elif page == "Summary":
                 )
                 else "N/A"
             )
-        )
-
-        col3.metric(
-            "Average Care Hours per Bed",
-            (
-                f"{average_care_hours_per_bed:.2f}"
-                if pd.notna(
-                    average_care_hours_per_bed
-                )
-                else "N/A"
-            )
-        )
-        st.subheader(
-            "Top 10 Providers by Average Residents"
         )
 
         provider_chart = px.bar(
@@ -556,19 +719,67 @@ elif page == "Summary":
             }
         )
 
-        provider_chart.update_layout(
-            yaxis={
-                "categoryorder": "total ascending"
+        staffing_mix_df = pd.DataFrame({
+            "staff_type": [
+                "Permanent Staff",
+                "Contract Staff"
+            ],
+            "percentage": [
+                avg_permanent_staff,
+                avg_contract_staff
+            ]
+        })
+
+        staffing_donut = px.pie(
+            staffing_mix_df,
+            names="staff_type",
+            values="percentage",
+            hole=0.45,
+            title="Overall Staffing Mix"
+        )
+
+        left_col, right_col = st.columns(2)
+
+        with left_col:
+            st.subheader(
+                "Top 10 Providers by Average Residents"
+            )
+
+            st.plotly_chart(
+                provider_chart,
+                use_container_width=True
+            )
+
+        with right_col:
+            st.subheader(
+                "Overall Staffing Mix"
+            )
+
+            st.plotly_chart(
+                staffing_donut,
+                use_container_width=True
+            )
+
+        st.subheader(
+            "Average Nursing Hours per Patient by State"
+        )
+
+        state_map = px.choropleth(
+            nursing_summary_df,
+            locations="state",
+            locationmode="USA-states",
+            color="nurse_to_patient_ratio",
+            scope="usa",
+            hover_name="state",
+            labels={
+                "state": "State",
+                "nurse_to_patient_ratio":
+                    "Avg Nursing Hours per Patient"
             }
         )
 
         st.plotly_chart(
-            provider_chart,
-            use_container_width=True
-        )
-
-        st.dataframe(
-            top_provider_df,
+            state_map,
             use_container_width=True
         )
 

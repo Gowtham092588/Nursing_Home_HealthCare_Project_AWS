@@ -1,0 +1,438 @@
+[
+    {
+        "Name": "cms certification number (ccn)",
+        "Type": "string"
+    },
+    {
+        "Name": "provider name",
+        "Type": "string"
+    },
+    {
+        "Name": "provider address",
+        "Type": "string"
+    },
+    {
+        "Name": "city/town",
+        "Type": "string"
+    },
+    {
+        "Name": "state",
+        "Type": "string"
+    },
+    {
+        "Name": "zip code",
+        "Type": "string"
+    },
+    {
+        "Name": "telephone number",
+        "Type": "string"
+    },
+    {
+        "Name": "provider ssa county code",
+        "Type": "string"
+    },
+    {
+        "Name": "county/parish",
+        "Type": "string"
+    },
+    {
+        "Name": "ownership type",
+        "Type": "string"
+    },
+    {
+        "Name": "number of certified beds",
+        "Type": "string"
+    },
+    {
+        "Name": "average number of residents per day",
+        "Type": "string"
+    },
+    {
+        "Name": "average number of residents per day footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "provider type",
+        "Type": "string"
+    },
+    {
+        "Name": "provider resides in hospital",
+        "Type": "string"
+    },
+    {
+        "Name": "legal business name",
+        "Type": "string"
+    },
+    {
+        "Name": "date first approved to provide medicare and medicaid services",
+        "Type": "string"
+    },
+    {
+        "Name": "affiliated entity name",
+        "Type": "string"
+    },
+    {
+        "Name": "affiliated entity id",
+        "Type": "string"
+    },
+    {
+        "Name": "continuing care retirement community",
+        "Type": "string"
+    },
+    {
+        "Name": "special focus status",
+        "Type": "string"
+    },
+    {
+        "Name": "abuse icon",
+        "Type": "string"
+    },
+    {
+        "Name": "most recent health inspection more than 2 years ago",
+        "Type": "string"
+    },
+    {
+        "Name": "provider changed ownership in last 12 months",
+        "Type": "string"
+    },
+    {
+        "Name": "with a resident and family council",
+        "Type": "string"
+    },
+    {
+        "Name": "automatic sprinkler systems in all required areas",
+        "Type": "string"
+    },
+    {
+        "Name": "overall rating",
+        "Type": "string"
+    },
+    {
+        "Name": "overall rating footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "health inspection rating",
+        "Type": "string"
+    },
+    {
+        "Name": "health inspection rating footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "qm rating",
+        "Type": "string"
+    },
+    {
+        "Name": "qm rating footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "long-stay qm rating",
+        "Type": "string"
+    },
+    {
+        "Name": "long-stay qm rating footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "short-stay qm rating",
+        "Type": "string"
+    },
+    {
+        "Name": "short-stay qm rating footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "staffing rating",
+        "Type": "string"
+    },
+    {
+        "Name": "staffing rating footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "reported staffing footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "physical therapist staffing footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "reported nurse aide staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported lpn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported rn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported licensed staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "reported total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "total number of nurse staff hours per resident per day on the weekend",
+        "Type": "string"
+    },
+    {
+        "Name": "registered nurse hours per resident per day on the weekend",
+        "Type": "string"
+    },
+    {
+        "Name": "reported physical therapist staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "total nursing staff turnover",
+        "Type": "string"
+    },
+    {
+        "Name": "total nursing staff turnover footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "registered nurse turnover",
+        "Type": "string"
+    },
+    {
+        "Name": "registered nurse turnover footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "number of administrators who have left the nursing home",
+        "Type": "string"
+    },
+    {
+        "Name": "administrator turnover footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "nursing case-mix index",
+        "Type": "string"
+    },
+    {
+        "Name": "nursing case-mix index ratio",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix nurse aide staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix lpn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix rn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "case-mix weekend total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "adjusted nurse aide staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "adjusted lpn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "adjusted rn staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "adjusted total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "adjusted weekend total nurse staffing hours per resident per day",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 standard survey health date",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 total number of health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 number of standard health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 number of complaint health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 health deficiency score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 number of health revisits",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 health revisit score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 1 total health score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 standard health survey date",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 total number of health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 number of standard health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 number of complaint health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 health deficiency score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 number of health revisits",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 health revisit score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 2 total health score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 standard health survey date",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 total number of health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 number of standard health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 number of complaint health deficiencies",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 health deficiency score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 number of health revisits",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 health revisit score",
+        "Type": "string"
+    },
+    {
+        "Name": "rating cycle 3 total health score",
+        "Type": "string"
+    },
+    {
+        "Name": "total weighted health survey score",
+        "Type": "string"
+    },
+    {
+        "Name": "number of facility reported incidents",
+        "Type": "string"
+    },
+    {
+        "Name": "number of substantiated complaints",
+        "Type": "string"
+    },
+    {
+        "Name": "number of citations from infection control inspections",
+        "Type": "string"
+    },
+    {
+        "Name": "number of fines",
+        "Type": "string"
+    },
+    {
+        "Name": "total amount of fines in dollars",
+        "Type": "string"
+    },
+    {
+        "Name": "number of payment denials",
+        "Type": "string"
+    },
+    {
+        "Name": "total number of penalties",
+        "Type": "string"
+    },
+    {
+        "Name": "location",
+        "Type": "string"
+    },
+    {
+        "Name": "latitude",
+        "Type": "string"
+    },
+    {
+        "Name": "longitude",
+        "Type": "string"
+    },
+    {
+        "Name": "geocoding footnote",
+        "Type": "string"
+    },
+    {
+        "Name": "processing date",
+        "Type": "string"
+    },
+    {
+        "Name": "ingestion_timestamp",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "source_file",
+        "Type": "string"
+    },
+    {
+        "Name": "source_file_name",
+        "Type": "string"
+    },
+    {
+        "Name": "source_modified_time",
+        "Type": "timestamp"
+    },
+    {
+        "Name": "batch_id",
+        "Type": "string"
+    },
+    {
+        "Name": "record_hash",
+        "Type": "string"
+    }
+]
