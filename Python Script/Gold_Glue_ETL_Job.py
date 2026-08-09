@@ -106,6 +106,7 @@ provider_capacity_df = (
     provider_df
     .select(
         "provider_id",
+        "provider_name",
         "certified_beds"
     )
 )
@@ -136,6 +137,7 @@ care_hours_per_bed_df = (
     )
     .select(
         "provider_id",
+        "provider_name",
         "work_date",
         "total_rn_hours",
         "total_lpn_hours",

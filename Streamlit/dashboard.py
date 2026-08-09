@@ -17,7 +17,8 @@ def load_provider_ids() -> pd.DataFrame:
 
     query = """
         SELECT DISTINCT
-            provider_id
+            provider_id,
+            provider_name
         FROM total_care_hours_per_certified_bed
         ORDER BY provider_id
     """
@@ -243,14 +244,24 @@ if page == "Provider Capacity":
 
         provider_df = load_provider_ids()
 
+        provider_options = {
+            f"{row['provider_name']} ({row['provider_id']})":
+                row["provider_id"]
+            for _, row in provider_df.iterrows()
+        }
+
+        selected_provider_label = st.selectbox(
+            "Select provider",
+            provider_options.keys()
+        )
+
+        selected_provider = (
+            provider_options[selected_provider_label]
+        )
+
         provider_ids = (
             provider_df["provider_id"]
             .tolist()
-        )
-
-        selected_provider = st.selectbox(
-            "Select provider",
-            provider_ids
         )
 
         if selected_provider:
