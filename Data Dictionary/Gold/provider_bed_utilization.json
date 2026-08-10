@@ -12,7 +12,19 @@
         "Type": "string"
     },
     {
+        "Name": "certified_beds",
+        "Type": "int"
+    },
+    {
         "Name": "avg_residents_per_day",
         "Type": "double"
+    },
+    {
+        "Name": "bed_utilization_rate",
+        "Type": "double"
+    },
+    {
+        "Name": "load_timestamp",
+        "Type": "timestamp"
     }
 ]

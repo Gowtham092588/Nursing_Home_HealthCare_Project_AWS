@@ -12,6 +12,10 @@
         "Type": "string"
     },
     {
+        "Name": "provider_type",
+        "Type": "string"
+    },
+    {
         "Name": "rn_permanent_hours",
         "Type": "double"
     },
