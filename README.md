@@ -20,6 +20,9 @@
 * Amazon Athena for querying curated datasets.
 * Interactive streamlit dashboard.
 
+## 🏛️ Architecture
+
+<img width="975" height="316" alt="image" src="https://github.com/user-attachments/assets/28579d53-15e6-4323-9958-4324f7a74c0b" />
 
 
 
