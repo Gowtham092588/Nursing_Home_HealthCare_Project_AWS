@@ -149,6 +149,38 @@ care_hours_per_bed_df = (
     )
 )
 
+# Bed utilization rate.
+
+provider_bed_utilization_df = (
+    provider_df
+    .select(
+        "provider_id",
+        "provider_name",
+        "state",
+        "certified_beds",
+        "avg_residents_per_day"
+    )
+    .withColumn(
+        "bed_utilization_rate",
+        F.when(
+            F.col("certified_beds") > 0,
+            F.round(
+                (
+                    F.col("avg_residents_per_day")
+                    / F.col("certified_beds")
+                ) * 100,
+                2
+            )
+        ).otherwise(
+            F.lit(None).cast("double")
+        )
+    )
+    .withColumn(
+        "load_timestamp",
+        F.current_timestamp()
+    )
+)
+
 # Average nurse hours per patient  by hospital
 
 nursing_hours_patient_hospital_ratio_df = (
@@ -199,22 +231,6 @@ nursing_hours_patient_hospital_ratio_df = (
 
 )
 
-# Top 10 hospitals with the highest patient throughput.
-
-top_ten_providers_by_avg_residents_df = (
-    provider_df
-    .select(
-        "provider_id",
-        "provider_name",
-        "state",
-        "avg_residents_per_day"
-    )
-    .orderBy(
-        F.col("avg_residents_per_day").desc()
-    )
-    .limit(10)
-)
-
 # Ratio of permanent staff to temporary/contract staff.
 
 permanent_contract_ratio_df = (
@@ -227,45 +243,68 @@ permanent_contract_ratio_df = (
     )
     .agg(
         F.sum(
-            F.coalesce(F.col("hrs_rn_emp"), F.lit(0.0))
+            F.coalesce(
+                F.col("hrs_rn_emp"),
+                F.lit(0.0)
+            )
         ).alias("rn_permanent_hours"),
 
         F.sum(
-            F.coalesce(F.col("hrs_lpn_emp"), F.lit(0.0))
+            F.coalesce(
+                F.col("hrs_lpn_emp"),
+                F.lit(0.0)
+            )
         ).alias("lpn_permanent_hours"),
 
         F.sum(
-            F.coalesce(F.col("hrs_cna_emp"), F.lit(0.0))
+            F.coalesce(
+                F.col("hrs_cna_emp"),
+                F.lit(0.0)
+            )
         ).alias("cna_permanent_hours"),
 
         F.sum(
-            F.coalesce(F.col("hrs_rn_ctr"), F.lit(0.0))
+            F.coalesce(
+                F.col("hrs_rn_ctr"),
+                F.lit(0.0)
+            )
         ).alias("rn_contract_hours"),
 
         F.sum(
-            F.coalesce(F.col("hrs_lpn_ctr"), F.lit(0.0))
+            F.coalesce(
+                F.col("hrs_lpn_ctr"),
+                F.lit(0.0)
+            )
         ).alias("lpn_contract_hours"),
 
         F.sum(
-            F.coalesce(F.col("hrs_cna_ctr"), F.lit(0.0))
+            F.coalesce(
+                F.col("hrs_cna_ctr"),
+                F.lit(0.0)
+            )
         ).alias("cna_contract_hours")
     )
+
     .withColumn(
         "total_permanent_hours",
         F.round(
             F.col("rn_permanent_hours")
             + F.col("lpn_permanent_hours")
-            + F.col("cna_permanent_hours"), 2
+            + F.col("cna_permanent_hours"),
+            2
         )
     )
+
     .withColumn(
         "total_contract_hours",
         F.round(
             F.col("rn_contract_hours")
             + F.col("lpn_contract_hours")
-            + F.col("cna_contract_hours"), 2
+            + F.col("cna_contract_hours"),
+            2
         )
     )
+
     .withColumn(
         "permanent_to_contract_ratio",
         F.when(
@@ -275,8 +314,11 @@ permanent_contract_ratio_df = (
                 / F.col("total_contract_hours"),
                 2
             )
-        ).otherwise(F.lit(None).cast("double"))
+        ).otherwise(
+            F.lit(None).cast("double")
+        )
     )
+
     .withColumn(
         "permanent_staff_percentage",
         F.when(
@@ -285,15 +327,20 @@ permanent_contract_ratio_df = (
                 + F.col("total_contract_hours")
             ) > 0,
             F.round(
-                F.col("total_permanent_hours")
-                / (
+                (
                     F.col("total_permanent_hours")
-                    + F.col("total_contract_hours")
+                    / (
+                        F.col("total_permanent_hours")
+                        + F.col("total_contract_hours")
+                    )
                 ) * 100,
                 2
             )
-        ).otherwise(F.lit(None).cast("double"))
+        ).otherwise(
+            F.lit(None).cast("double")
+        )
     )
+
     .withColumn(
         "contract_staff_percentage",
         F.when(
@@ -302,18 +349,58 @@ permanent_contract_ratio_df = (
                 + F.col("total_contract_hours")
             ) > 0,
             F.round(
-                F.col("total_contract_hours")
-                / (
-                    F.col("total_permanent_hours")
-                    + F.col("total_contract_hours")
+                (
+                    F.col("total_contract_hours")
+                    / (
+                        F.col("total_permanent_hours")
+                        + F.col("total_contract_hours")
+                    )
                 ) * 100,
                 2
             )
-        ).otherwise(F.lit(None).cast("double"))
+        ).otherwise(
+            F.lit(None).cast("double")
+        )
+    )
+)
+
+provider_type_df = (
+    provider_df
+    .select(
+        "provider_id",
+        "provider_type"
+    )
+)
+
+permanent_contract_ratio_df = (
+    permanent_contract_ratio_df.alias("s")
+    .join(
+        provider_type_df.alias("p"),
+        on="provider_id",
+        how="left"
     )
     .withColumn(
         "load_timestamp",
         F.current_timestamp()
+    )
+    .select(
+        "provider_id",
+        "provider_name",
+        "state",
+        "provider_type",
+        "work_date",
+        "rn_permanent_hours",
+        "lpn_permanent_hours",
+        "cna_permanent_hours",
+        "rn_contract_hours",
+        "lpn_contract_hours",
+        "cna_contract_hours",
+        "total_permanent_hours",
+        "total_contract_hours",
+        "permanent_to_contract_ratio",
+        "permanent_staff_percentage",
+        "contract_staff_percentage",
+        "load_timestamp"
     )
 )
 
@@ -353,21 +440,6 @@ state_healthcare_metrics_df = (
     )
     .orderBy("state_nation")
 )
-
-# average number of hospitalizations
-
-avg_hospitalizations_df = (
-    us_state_avg_df
-    .groupBy("state_nation")
-    .agg(
-        F.round(
-            F.avg("number_hospitalizations_1000_long_stay_resident_days"),
-            2
-        ).alias("avg_hospitalizations_per_1000")
-    )
-    .orderBy(F.desc("avg_hospitalizations_per_1000"))
-)
-
 # Resident vs Staff Vaccination Comparison
 
 vaccination_comparison_df = (
@@ -474,6 +546,12 @@ def main() -> None:
         )
 
         validate_unique(
+            provider_bed_utilization_df,
+            ["provider_id"],
+            "provider_bed_utilization"
+        )
+
+        validate_unique(
             nursing_hours_patient_hospital_ratio_df,
             ["provider_id", "work_date"],
             "nursing_hours_per_patient_hospital"
@@ -486,21 +564,9 @@ def main() -> None:
         )
 
         validate_unique(
-            top_ten_providers_by_avg_residents_df,
-            ["provider_id"],
-            "top_ten_providers_by_avg_residents"
-        )
-
-        validate_unique(
             state_healthcare_metrics_df,
             ["state_nation"],
             "state_healthcare_metrics"
-        )
-
-        validate_unique(
-            avg_hospitalizations_df,
-            ["state_nation"],
-            "avg_number_hospitalizations"
         )
 
         validate_unique(
@@ -520,13 +586,13 @@ def main() -> None:
         )
 
         write_gold_table(
-            dataframe=nursing_hours_patient_hospital_ratio_df,
-            table_name="avg_nurse_hours_to_patient_hospital"
+            dataframe=provider_bed_utilization_df,
+            table_name="provider_bed_utilization"
         )
 
         write_gold_table(
-            dataframe=top_ten_providers_by_avg_residents_df,
-            table_name="top_ten_providers_by_avg_residents"
+            dataframe=nursing_hours_patient_hospital_ratio_df,
+            table_name="avg_nurse_hours_to_patient_hospital"
         )
 
         write_gold_table(
@@ -539,12 +605,6 @@ def main() -> None:
             dataframe=state_healthcare_metrics_df,
             table_name="state_healthcare_metrics"
         )
-
-        write_gold_table(
-            dataframe=avg_hospitalizations_df,
-            table_name="avg_number_hospitalizations"
-        )
-
         write_gold_table(
             dataframe=vaccination_comparison_df,
             table_name="resident_staff_vaccination_comparison"

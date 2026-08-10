@@ -13,14 +13,49 @@ st.title("🏥 Nursing Home Healthcare Dashboard")
 
 
 @st.cache_data(ttl=300)
-def load_provider_ids() -> pd.DataFrame:
+def load_provider_ids(
+    provider_type: str
+) -> pd.DataFrame:
 
-    query = """
+    query = f"""
         SELECT DISTINCT
             provider_id,
             provider_name
-        FROM total_care_hours_per_certified_bed
-        ORDER BY provider_id
+        FROM permanent_contract_staffing_ratio
+        WHERE provider_type = '{provider_type}'
+        ORDER BY provider_name
+    """
+
+    return run_athena(query)
+
+
+@st.cache_data(ttl=300)
+def load_provider_types() -> pd.DataFrame:
+
+    query = """
+        SELECT DISTINCT
+            provider_type
+        FROM permanent_contract_staffing_ratio
+        WHERE provider_type IS NOT NULL
+        ORDER BY provider_type
+    """
+
+    return run_athena(query)
+
+
+@st.cache_data(ttl=300)
+def load_bed_utilization(provider_id: str) -> pd.DataFrame:
+
+    query = f"""
+        SELECT
+            provider_id,
+            provider_name,
+            state,
+            certified_beds,
+            avg_residents_per_day,
+            bed_utilization_rate
+        FROM provider_bed_utilization
+        WHERE provider_id = '{provider_id}'
     """
 
     return run_athena(query)
@@ -80,14 +115,19 @@ def load_nursing_hours_per_patient() -> pd.DataFrame:
 
 @st.cache_data(ttl=300)
 def load_top_providers() -> pd.DataFrame:
+
     query = """
         SELECT
             provider_id,
             provider_name,
             state,
-            avg_residents_per_day
-        FROM top_ten_providers_by_avg_residents
+            certified_beds,
+            avg_residents_per_day,
+            bed_utilization_rate
+        FROM provider_bed_utilization
+        WHERE avg_residents_per_day IS NOT NULL
         ORDER BY avg_residents_per_day DESC
+        LIMIT 10
     """
 
     return run_athena(query)
@@ -107,7 +147,10 @@ def load_staffing_states() -> pd.DataFrame:
 
 
 @st.cache_data(ttl=300)
-def load_staffing_ratio(selected_states: tuple[str, ...]) -> pd.DataFrame:
+def load_staffing_ratio(
+    selected_states: tuple[str, ...],
+    provider_type: str
+) -> pd.DataFrame:
 
     states_sql = ", ".join(
         f"'{state}'"
@@ -129,6 +172,7 @@ def load_staffing_ratio(selected_states: tuple[str, ...]) -> pd.DataFrame:
         FROM permanent_contract_staffing_ratio
 
         WHERE state IN ({states_sql})
+          AND provider_type = '{provider_type}'
 
         GROUP BY state
 
@@ -167,19 +211,6 @@ def load_state_metrics() -> pd.DataFrame:
             avg_ed_visits_per_1000_resident_days
         FROM state_healthcare_metrics
         ORDER BY state_nation
-    """
-
-    return run_athena(query)
-
-
-@st.cache_data(ttl=300)
-def load_hospitalizations() -> pd.DataFrame:
-    query = """
-        SELECT
-            state_nation,
-            avg_hospitalizations_per_1000
-        FROM avg_number_hospitalizations
-        ORDER BY avg_hospitalizations_per_1000 DESC
     """
 
     return run_athena(query)
@@ -243,7 +274,21 @@ if page == "Provider Capacity":
 
     try:
 
-        provider_df = load_provider_ids()
+        provider_types_df = load_provider_types()
+
+        provider_types = (
+            provider_types_df["provider_type"]
+            .tolist()
+        )
+
+        selected_provider_type = st.selectbox(
+            "Select provider type",
+            provider_types
+        )
+
+        provider_df = load_provider_ids(
+            selected_provider_type
+        )
 
         provider_options = {
             f"{row['provider_name']} ({row['provider_id']})":
@@ -258,11 +303,6 @@ if page == "Provider Capacity":
 
         selected_provider = (
             provider_options[selected_provider_label]
-        )
-
-        provider_ids = (
-            provider_df["provider_id"]
-            .tolist()
         )
 
         if selected_provider:
@@ -299,6 +339,24 @@ if page == "Provider Capacity":
                 else None
             )
 
+            utilization_df = load_bed_utilization(
+                selected_provider
+            )
+
+            utilization_df = convert_numeric_columns(
+                utilization_df,
+                [
+                    "avg_residents_per_day",
+                    "bed_utilization_rate"
+                ]
+            )
+
+            utilization_record = (
+                utilization_df.iloc[0]
+                if not utilization_df.empty
+                else None
+            )
+
             if latest_record is not None:
 
                 st.subheader(
@@ -309,7 +367,7 @@ if page == "Provider Capacity":
                     f"Provider ID: {latest_record['provider_id']}"
                 )
 
-                col1, col2, col3 = st.columns(3)
+                col1, col2, col3, col4 = st.columns(4)
 
                 col1.metric(
                     "Certified Beds",
@@ -326,6 +384,18 @@ if page == "Provider Capacity":
                     f"{latest_record[
                         'total_care_hours_per_certified_bed'
                     ]:.2f}"
+                )
+
+                col4.metric(
+                    "Bed Utilization",
+                    (
+                        f"{utilization_record['bed_utilization_rate']:.2f}%"
+                        if utilization_record is not None
+                        and pd.notna(
+                            utilization_record["bed_utilization_rate"]
+                        )
+                        else "N/A"
+                    )
                 )
 
             st.subheader(
@@ -377,6 +447,19 @@ elif page == "Staffing Analysis":
             .tolist()
         )
 
+        provider_types_df = load_provider_types()
+
+        provider_types = (
+            provider_types_df["provider_type"]
+            .tolist()
+        )
+
+        selected_provider_type = st.selectbox(
+            "Select provider type",
+            provider_types,
+            key="staffing_provider_type"
+        )
+
         selected_states = st.multiselect(
             "Select states",
             states,
@@ -387,7 +470,8 @@ elif page == "Staffing Analysis":
 
             staffing_summary_df = (
                 load_staffing_ratio(
-                    tuple(selected_states)
+                    tuple(selected_states),
+                    selected_provider_type
                 )
             )
 
@@ -456,9 +540,9 @@ elif page == "State Health Metrics":
 
     try:
 
-        nursing_summary_df = (
-            load_nursing_hours_per_patient()
-        )
+        nursing_summary_df = load_nursing_hours_per_patient()
+
+        state_metrics_df = load_state_metrics()
 
         nursing_summary_df = (
             convert_numeric_columns(
@@ -467,6 +551,16 @@ elif page == "State Health Metrics":
                     "nurse_to_patient_ratio"
                 ]
             )
+        )
+
+        state_metrics_df = convert_numeric_columns(
+            state_metrics_df,
+            [
+                "avg_short_stay_rehospitalization_rate_pct",
+                "avg_short_stay_op_emergency_dept_visit",
+                "avg_hospitalizations_per_1000_resident_days",
+                "avg_ed_visits_per_1000_resident_days"
+            ]
         )
 
         st.subheader(
@@ -492,10 +586,26 @@ elif page == "State Health Metrics":
             use_container_width=True
         )
 
-        st.dataframe(
-            nursing_summary_df,
-            use_container_width=True,
-            hide_index=True
+        st.subheader(
+            "Average Rehospitalization Rate by State"
+        )
+
+        rehospitalization_chart = px.choropleth(
+            state_metrics_df,
+            locations="state_nation",
+            locationmode="USA-states",
+            color="avg_short_stay_rehospitalization_rate_pct",
+            scope="usa",
+            hover_name="state_nation",
+            labels={
+                "avg_short_stay_rehospitalization_rate_pct":
+                    "Rehospitalization Rate (%)"
+            }
+        )
+
+        st.plotly_chart(
+            rehospitalization_chart,
+            use_container_width=True
         )
 
     except Exception as error:
@@ -580,8 +690,6 @@ elif page == "Summary":
 
         staffing_summary_df = load_overall_staffing_summary()
 
-        hospitalization_df = load_hospitalizations()
-
         vaccination_df = load_vaccination_comparison()
 
         top_provider_df = (
@@ -610,13 +718,6 @@ elif page == "Summary":
         nursing_summary_df = convert_numeric_columns(
             nursing_summary_df,
             ["nurse_to_patient_ratio"]
-        )
-
-        hospitalization_df = convert_numeric_columns(
-            hospitalization_df,
-            [
-                "avg_hospitalizations_per_1000"
-            ]
         )
 
         vaccination_df = convert_numeric_columns(
@@ -729,7 +830,8 @@ elif page == "Summary":
             orientation="h",
             hover_data=[
                 "provider_id",
-                "state"
+                "state",
+                "bed_utilization_rate"
             ],
             labels={
                 "avg_residents_per_day":
