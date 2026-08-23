@@ -23,9 +23,9 @@ from datetime import datetime, timezone
 from pyspark.sql.window import Window
 from delta.tables import DeltaTable
 
+args = getResolvedOptions(sys.argv, ['JOB_NAME', 'TABLE_NAME'])
 
-# @params: [JOB_NAME]
-args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+table_name = args["TABLE_NAME"]
 
 sc = SparkContext()
 glueContext = GlueContext(sc)
@@ -383,10 +383,10 @@ def title_case_string_columns(df: DataFrame) -> DataFrame:
 
     for field in df.schema.fields:
         if (isinstance(field.dataType, StringType)
-            and not any(
-            keyword in field.name.lower()
-            for keyword in skip_keywords)
-            ):
+                and not any(
+                keyword in field.name.lower()
+                for keyword in skip_keywords)
+                ):
 
             df = df.withColumn(
                 field.name,
@@ -1222,46 +1222,98 @@ def transform_using_config(spark, table_name: str, table_config: dict, bronze_bu
 def main() -> None:
 
     config = load_config_json(
-        "s3://healthcare-proj-data-bkt/config/silver_tables_config.json")
+        "s3://healthcare-proj-data-bkt/config/"
+        "silver_tables_config.json"
+    )
 
-    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    run_id = datetime.now(
+        timezone.utc
+    ).strftime(
+        "%Y%m%dT%H%M%SZ"
+    )
 
-    try:
-        for table_name, table_config in config["tables"].items():
+    table_name = args["TABLE_NAME"]
 
-            print(f"Processing table: {table_name}")
+    # -----------------------------------------------------
+    # Validate configured table
+    # -----------------------------------------------------
 
-            valid_df, quarantine_df = transform_using_config(
-                spark=spark,
-                table_name=table_name,
-                table_config=table_config,
-                bronze_bucket=BRONZE_BUCKET
-            )
+    if table_name not in config["tables"]:
 
-            write_quarantine_table(
-                df=quarantine_df,
-                table_name=table_name,
-                quarantine_bucket=QUARANTINE_BUCKET,
-                run_id=run_id
-            )
-
-            write_silver_table(
-                spark=spark,
-                df=valid_df,
-                table_name=table_name,
-                table_config=table_config,
-                silver_bucket=SILVER_BUCKET
-            )
-
-        job.commit()
-
-    except Exception as error:
-        print(
-            "Glue Silver transformation failed: "
-            f"{error}"
+        raise ValueError(
+            f"Table '{table_name}' is not configured "
+            f"in silver_tables_config.json"
         )
-        raise
+
+    table_config = config["tables"][
+        table_name
+    ]
+
+    print(
+        f"Starting Silver processing for: "
+        f"{table_name}"
+    )
+
+    # -----------------------------------------------------
+    # Transform Bronze -> Silver
+    # -----------------------------------------------------
+
+    valid_df, quarantine_df = (
+        transform_using_config(
+            spark=spark,
+            table_name=table_name,
+            table_config=table_config,
+            bronze_bucket=BRONZE_BUCKET
+        )
+    )
+
+    # -----------------------------------------------------
+    # Write invalid records
+    # -----------------------------------------------------
+
+    write_quarantine_table(
+        df=quarantine_df,
+        table_name=table_name,
+        quarantine_bucket=QUARANTINE_BUCKET,
+        run_id=run_id
+    )
+
+    # -----------------------------------------------------
+    # Write Silver table
+    # -----------------------------------------------------
+
+    write_silver_table(
+        spark=spark,
+        df=valid_df,
+        table_name=table_name,
+        table_config=table_config,
+        silver_bucket=SILVER_BUCKET
+    )
+
+    print(
+        f"{table_name}: Silver processing "
+        f"completed successfully"
+    )
 
 
 if __name__ == "__main__":
-    main()
+
+    try:
+
+        main()
+
+        job.commit()
+
+        print(
+            "Silver Glue job "
+            "completed successfully."
+        )
+
+    except Exception as error:
+
+        print(
+            f"Silver Glue job failed: "
+            f"{error}"
+        )
+
+        raise

@@ -252,7 +252,7 @@ def convert_date_columns(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
     return result
 
 
-st.sidebar.header("Fliters")
+st.sidebar.header("Filters")
 
 page = st.sidebar.radio(
     "Select dashboard",
@@ -264,6 +264,10 @@ page = st.sidebar.radio(
         "Summary"
     ]
 )
+
+if st.sidebar.button("Refresh Data"):
+    st.cache_data.clear()
+    st.rerun()
 
 
 # ---------------------------------------------------------
