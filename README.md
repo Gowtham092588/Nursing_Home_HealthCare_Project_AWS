@@ -48,11 +48,22 @@ This project implements medellion architecture with delta lake storage:
 
 ### 🛠️ Technologies Used
 
-- **AWS Glue & PySpark**
-- **Amazon S3 & Delta Lake**
-- **AWS Glue Workflows, Crawlers & Data Catalog**
-- **Amazon Athena, Streamlit** 
-- **Python, Pandas, Git & GitHub** 
+* **AWS Glue & PySpark**
+* **Amazon S3 & Delta Lake**
+* **AWS Glue Workflows, Crawlers & Data Catalog**
+* **Amazon Athena, Streamlit** 
+* **Python, Pandas, Git & GitHub** 
 
+### 🚀 Key Engineering Challenges Solved
 
+* **Built a reliable Medallion pipeline** 
+* **Resolved duplicate and data quality issues** 
+* **Implemented historical change tracking** 
+* **Standardized inconsistent source data** 
+* **Built analytics-ready healthcare metrics**
+  
+### 💻 Author
+
+**Gowtham Kethineni**  
+https://www.linkedin.com/in/gowtham-kethineni
 
