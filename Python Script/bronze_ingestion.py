@@ -507,6 +507,19 @@ def main() -> None:
     )
 
     # -----------------------------------------------------
+    # Protect against missing manifest
+    # -----------------------------------------------------
+
+    if previous_modified_time is None and target_exists:
+
+        raise RuntimeError(
+            f"Manifest is missing for {bronze_table}, "
+            f"but the Bronze Delta table already exists at "
+            f"{output_path}. "
+            f"Ingestion stopped to prevent duplicate data."
+        )
+
+    # -----------------------------------------------------
     # Skip unchanged source
     # -----------------------------------------------------
 

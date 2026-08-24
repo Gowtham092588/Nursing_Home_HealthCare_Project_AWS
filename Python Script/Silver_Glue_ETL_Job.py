@@ -316,6 +316,21 @@ def clean_string_columns(df: DataFrame) -> DataFrame:
                 ""
             )
 
+            # Convert doubled CSV quotes "" -> "
+            cleaned_value = F.regexp_replace(
+                cleaned_value,
+                '""',
+                '"'
+            )
+
+            # Remove only outer wrapping quotes
+            cleaned_value = F.regexp_replace(
+                cleaned_value,
+                '^"(.*)"$',
+                '$1'
+            )
+
+            # Convert blank / NULL text to actual NULL
             df = df.withColumn(
                 field.name,
                 F.when(
@@ -386,7 +401,7 @@ def title_case_string_columns(df: DataFrame) -> DataFrame:
                 and not any(
                 keyword in field.name.lower()
                 for keyword in skip_keywords)
-                ):
+            ):
 
             df = df.withColumn(
                 field.name,

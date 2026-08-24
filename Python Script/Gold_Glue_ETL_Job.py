@@ -77,6 +77,13 @@ def build_staffing_provider_metrics():
         )
     )
 
+    provider_df.filter(
+        F.col("provider_id") == "106038").select(
+            "provider_id",
+            "provider_name",
+            "is_current"
+    ).show(truncate=False)
+
     staffing_summary_df = (
         staffing_df
         .groupby(['provider_id', 'work_date'])
@@ -364,8 +371,14 @@ def build_staffing_provider_metrics():
         provider_df
         .select(
             "provider_id",
+            "provider_name",
             "provider_type"
         )
+    )
+
+    permanent_contract_ratio_df = (
+        permanent_contract_ratio_df
+        .drop("provider_name")
     )
 
     permanent_contract_ratio_df = (
@@ -666,3 +679,7 @@ def main() -> None:
         )
 
     job.commit()
+
+
+if __name__ == "__main__":
+    main()
