@@ -6,9 +6,10 @@
 
 ## 🎯 Business Objective 
 
-* centralized dashboard that helps healthcare organizations understand staffing, provider capacity, vaccination coverage across facilities and states.
-* identify trends, compare performance, and support better workforce planning and operational decision-making.
-
+* Provide a centralized view of healthcare staffing, capacity, and vaccination metrics.
+* Compare provider and state-level performance.
+* Enable data-driven workforce and operational decisions.
+  
 ## 🚀 Project Highlights
 
 * AWS Glue Based Ingestion and Transformation.
