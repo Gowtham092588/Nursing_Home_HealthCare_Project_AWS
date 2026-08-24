@@ -11,15 +11,15 @@
 
 ## 🚀 Project Highlights
 
-☑️ AWS Glue Based Ingestion and Transformation.
-☑️ Medallion architecture (Bronze → Silver → Gold).
-☑️ Decoupled AWS Glue job architecture across Bronze, Silver, and Gold layers.
-☑️ SCD Type 2 Dimension.
-☑️ Data quality validation.
-☑️ Delta Lake optimized storage.
-☑️ AWS Glue Workflow for Orchestration and Scheduling.
-☑️ Amazon Athena for querying curated datasets.
-☑️ Interactive streamlit dashboard.
+* AWS Glue Based Ingestion and Transformation.
+* Medallion architecture (Bronze → Silver → Gold).
+* Decoupled AWS Glue job architecture across Bronze, Silver, and Gold layers.
+* SCD Type 2 Dimension.
+* Data quality validation.
+* Delta Lake optimized storage.
+* AWS Glue Workflow for Orchestration and Scheduling.
+* Amazon Athena for querying curated datasets.
+* Interactive streamlit dashboard.
 
 ## 🏛️ Architecture
 This project implements medellion architecture with delta lake storage:
