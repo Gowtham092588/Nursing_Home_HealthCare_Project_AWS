@@ -25,7 +25,7 @@
 ## 🏛️ Architecture
 This project implements medellion architecture with delta lake storage:
 
-<img width="975" height="316" alt="image" src="https://github.com/user-attachments/assets/28579d53-15e6-4323-9958-4324f7a74c0b" />
+<img width="1828" height="459" alt="image" src="https://github.com/user-attachments/assets/07255894-b1c9-41e8-982b-2fb8c9651131" />
 
 ## 🏗️ Bronze → Silver → Gold Architecture
 
