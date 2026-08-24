@@ -30,38 +30,38 @@ This project implements medellion architecture with delta lake storage:
 ## 🏗️ Bronze → Silver → Gold Architecture
 
 ### 🟫 Bronze Layer – Raw Data Ingestion
-- Ingests healthcare source datasets from Amazon S3 into Delta Lake tables
-- Preserves source data with minimal transformation for traceability
-- Maintains independent Bronze tables for Provider, Staffing, State Average, and Vaccination datasets
-- Provides the raw data foundation for downstream Silver processing
+- Ingests healthcare source datasets from Amazon S3 into Delta Lake tables.
+- Preserves source data with minimal transformation for traceability.
+- Maintains independent Bronze tables for Provider, Staffing, State Average, and Vaccination datasets.
+- Provides the raw data foundation for downstream Silver processing.
 
 ### ⬜ Silver Layer – Cleansed & Curated Data
-- Cleans and standardizes data types, nulls, whitespace, text formatting, and column names
-- Applies reusable data quality validations, duplicate handling, and quarantine of invalid records
-- Implements SCD Type 2 for Provider data to preserve historical attribute changes
-- Produces trusted, independently processed Silver datasets for downstream analytics
+- Cleans and standardizes data types, nulls, whitespace, text formatting, and column names.
+- Applies reusable data quality validations, duplicate handling, and quarantine of invalid records.
+- Implements SCD Type 2 for Provider data to preserve historical attribute changes.
+- Produces trusted, independently processed Silver datasets for downstream analytics.
 
 ### 🟨 Gold Layer – Business & Analytics Data
-- Builds business-ready metrics from validated and curated Silver datasets
-- Produces staffing, bed utilization, care-hours, nurse-to-patient, state healthcare, and vaccination metrics
-- Organizes transformations into independent Gold domains for decoupled processing
-- Publishes analytics-ready Delta tables for Amazon Athena and the Streamlit dashboard
+- Builds business-ready metrics from validated and curated Silver datasets.
+- Produces staffing, bed utilization, care-hours, nurse-to-patient, state healthcare, and vaccination metrics.
+- Organizes transformations into independent Gold domains for decoupled processing.
+- Publishes analytics-ready Delta tables for Amazon Athena and the Streamlit dashboard.
 
 ### 🛠️ Technologies Used
 
-* AWS Glue & PySpark
-* Amazon S3 & Delta Lake
-* AWS Glue Workflows, Crawlers & Data Catalog
-* Amazon Athena, Streamlit
-* Python, Pandas, Git & GitHub
+* AWS Glue & PySpark.
+* Amazon S3 & Delta Lake.
+* AWS Glue Workflows, Crawlers & Data Catalog.
+* Amazon Athena, Streamlit.
+* Python, Pandas, Git & GitHub.
 
 ### 🚀 Key Engineering Challenges Solved
 
-* Built a reliable Medallion pipeline 
-* Resolved duplicate and data quality issues
-* Implemented historical change tracking
-* Standardized inconsistent source data
-* Built analytics-ready healthcare metrics
+* Built a reliable Medallion pipeline.
+* Resolved duplicate and data quality issues.
+* Implemented historical change tracking.
+* Standardized inconsistent source data.
+* Built analytics-ready healthcare metrics.
   
 ### 💻 Author
 
