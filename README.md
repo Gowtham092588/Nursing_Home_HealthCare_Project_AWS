@@ -46,5 +46,13 @@ This project implements medellion architecture with delta lake storage:
 - Organizes transformations into independent Gold domains for decoupled processing
 - Publishes analytics-ready Delta tables for Amazon Athena and the Streamlit dashboard
 
+### 🛠️ Technologies Used
+
+- **AWS Glue & PySpark**
+- **Amazon S3 & Delta Lake**
+- **AWS Glue Workflows, Crawlers & Data Catalog**
+- **Amazon Athena, Streamlit** 
+- **Python, Pandas, Git & GitHub** 
+
 
 
